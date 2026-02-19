@@ -1,4 +1,4 @@
-from method_1 import *
+from method_2 import *
 
 print(main(3))
 print(main(4))
