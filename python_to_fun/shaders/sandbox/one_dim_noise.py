@@ -76,6 +76,7 @@ def one_dim_noise_shader(x, y):
 
 	return chaos, chaos, chaos
 
+'''
 def one_dim_generate_values(size):
 
 	# 0 < size < 1
@@ -96,8 +97,6 @@ def one_dim_lerp (coord, values, size):
 
 	coord_index = int(coord // size)
 
-	print(coord_index, coord)
-
 	c0 = coord_index * size
 	c1 = (coord_index + 1) * size
 
@@ -110,13 +109,42 @@ def one_dim_lerp (coord, values, size):
 
 	return value
 
+chaos_values = []
+# Неккоректный шейдер в виду того, что необходимо использовать
+# Глобальные значения, а инициализация и передача в параметр
+# Массива значений затруднительна в виду моей оргазниции
+# Визуалиции нескольких окон
 def one_dim_value_noise_shader(x, y):
+	global chaos_values
 
-	size = 0.1
+	size = 0.13
 
-	chaos_values = one_dim_generate_values(size)
+	if len(chaos_values) == 0:
+		chaos_values = one_dim_generate_values(size)
 
 	chaos = one_dim_lerp(x, chaos_values, size)
+
+	return chaos, chaos, chaos
+'''
+def one_dim_lerp (coord, size):
+
+	c0 = coord // size * size
+	c1 = (coord // size + 1) * size
+
+	v0 = random_generator(c0, c0, 2)
+	v1 = random_generator(c1, c1, 2)
+
+	k = (v1 - v0) / (c1 - c0)
+
+	value = v0 + k * ( coord - c0)
+
+	return value
+
+def one_dim_value_noise_shader(x, y):
+
+	size = 0.05
+
+	chaos = one_dim_lerp(x, size)
 
 	return chaos, chaos, chaos
 
