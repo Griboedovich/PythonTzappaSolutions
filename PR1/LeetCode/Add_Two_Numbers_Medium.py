@@ -48,9 +48,9 @@ class Solution:
 
 def test():
 
-	list1 = ListNode(0)
+	list1 = ListNode(3,4,5)
 
-	list2 = ListNode(0)
+	list2 = ListNode(1,1,1)
 
 	node = Solution().addTwoNumbers(list1,list2)
 	num = 0
